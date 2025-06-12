@@ -38,7 +38,7 @@ function Dashboard() {
       <div className="flex justify-between lg:w-[1200px] px-5 lg:mx-auto mt-10 border-b-2 border-main-black pb-4">
         <Typography variant="p">List Soal</Typography>
 
-        <Link href="/" className="flex items-center">
+        <Link href="/list-soal" className="flex items-center">
           <Typography variant="p">Lihat Semua</Typography>
           <ChevronRight className="text-black" />
         </Link>
