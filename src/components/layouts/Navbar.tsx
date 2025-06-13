@@ -6,16 +6,26 @@ import { CircleUserRound, LogOut, Menu } from "lucide-react";
 import { useState } from "react";
 import { useLogout } from "@/app/(auth)/login/hooks/useLogout";
 import { useGetMe } from "@/app/(auth)/login/hooks/useGetMe";
+import { MoonLoader } from "react-spinners";
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const { data } = useGetMe();
+  const { data, isLoading } = useGetMe();
+
+  // Get Username from Email
   const username = data?.split("@")[0] || "Guest";
+
+  if (isLoading)
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <MoonLoader />
+      </div>
+    );
 
   return (
     <>
-      <div className="border-t-2 border-main-black border-b-2 mt-5 w-full flex">
+      <div className="border-t-2 border-main-black border-b-2 mt-5 w-full flex sticky top-0">
         <div className="bg-main-black my-5 mx-5 py-3 px-10 rounded-full w-full lg:w-2/3 flex justify-between">
           {/* LOGO */}
           <Link href="/" className="text-white text-lg font-semibold">
@@ -43,7 +53,7 @@ function Navbar() {
           </Link>
 
           <Link
-            href="/"
+            href="/leaderboard"
             className="text-white text-lg font-semibold hidden lg:block"
           >
             <Typography variant="btn" className="text-white">
@@ -51,14 +61,14 @@ function Navbar() {
             </Typography>
           </Link>
 
-          <Link
+          {/* <Link
             href="/"
             className="text-white text-lg font-semibold hidden lg:block"
           >
             <Typography variant="btn" className="text-white">
               Result
             </Typography>
-          </Link>
+          </Link> */}
         </div>
 
         {/* ACCOUNT INFO */}
@@ -98,7 +108,7 @@ function Navbar() {
             </Typography>
           </div>
 
-          <Link href="/" className="text-white text-lg font-semibold">
+          <Link href="/list-soal" className="text-white text-lg font-semibold">
             <Typography variant="btn" className="text-white">
               List Soal
             </Typography>

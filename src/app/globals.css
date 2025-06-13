@@ -3,5 +3,25 @@
 @tailwind utilities;
 
 .hide-scrollbar::-webkit-scrollbar {
-    display: none;         /* Chrome, Safari, Edge */
-  }
+  display: none; /* Chrome, Safari, Edge */
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #000000;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #a2a2a2;
+  border-radius: 50px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #a2a2a2;
+}

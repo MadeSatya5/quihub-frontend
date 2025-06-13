@@ -1,23 +1,61 @@
 "use client";
 
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useGetQuizById } from "../hooks/useGetQuizById";
 import Typography from "@/components/ui/Typography";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import MainLayout from "@/components/layouts/Layout";
 import { useSubmitQuizMutation } from "../hooks/useSubmitQuizMutation";
+import { MoonLoader } from "react-spinners";
 
 function Soal() {
   const params = useParams();
+  const router = useRouter();
   const id = typeof params.id === "string" ? params.id : "";
 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<number, string>>({});
+  const [timeLeft, setTimeLeft] = useState(15 * 60);
 
   const { data, isLoading } = useGetQuizById(id);
-  const {mutate} = useSubmitQuizMutation();
 
+  const { mutate } = useSubmitQuizMutation();
+
+  // Logic Timer
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft((prevTime) => {
+        if (prevTime <= 1) {
+          clearInterval(timer);
+          handleSubmit();
+          return 0;
+        }
+        return prevTime - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Formatter Timer
+  function formatTime(seconds: number) {
+    const minutes = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${String(minutes).padStart(2, "0")} : ${String(secs).padStart(
+      2,
+      "0"
+    )}`;
+  }
+
+  if (isLoading)
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <MoonLoader />
+      </div>
+    );
+    
   if (!data)
     return <div className="text-center text-black mt-20">Quiz not found</div>;
   // console.log(data);
@@ -28,7 +66,6 @@ function Soal() {
 
   if (isLoading)
     return <div className="text-center text-black mt-20">Loading...</div>;
-
 
   function handleSubmit() {
     if (!data) return;
@@ -48,17 +85,16 @@ function Soal() {
     });
     score = (benar / totalQuestions) * 100;
 
-    console.log("Hasil:");
-    console.log("Benar:", benar);
-    console.log("Score:", score);
+    // console.log("Hasil:");
+    // console.log("Benar:", benar);
+    // console.log("Score:", score);
 
     // Kirim ke Backend
-    mutate(
-      {
-        id_subject: id,
-        score: score,
-      },
-    )
+    mutate({
+      id_subject: id,
+      score: score,
+    });
+    router.push(`/soal/${id}/result?score=${score}`);
   }
 
   return (
@@ -79,6 +115,15 @@ function Soal() {
                 }%`,
               }}
             ></div>
+          </div>
+          {/* Timer */}
+          <div className="mt-4">
+            <Typography variant="p" className="mb-1">
+              Sisa Waktu:{" "}
+            </Typography>
+            <Typography variant="p" weight="bold">
+              {formatTime(timeLeft)}
+            </Typography>
           </div>
         </section>
 
@@ -173,8 +218,12 @@ function Soal() {
             {Array.from({ length: totalQuestions }, (_, index) => (
               <button
                 key={index}
-                className={` h-7 w-7 rounded-sm text-white text-sm  hover:underline ${
-                  index === currentQuestionIndex ? "bg-blue-600" : "bg-gray-400"
+                className={`h-7 w-7 rounded-sm text-white text-sm hover:underline ${
+                  index === currentQuestionIndex
+                    ? "bg-blue-800"
+                    : answers[index]
+                    ? "bg-blue-600"
+                    : "bg-gray-400"
                 }`}
                 onClick={() => setCurrentQuestionIndex(index)}
               >
