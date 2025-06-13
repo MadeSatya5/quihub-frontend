@@ -9,7 +9,6 @@ import Link from "next/link";
 
 function Leaderboard() {
   const { data, isLoading } = useGetAllQuiz();
-    console.log(data);
 
   if (isLoading)
     return (

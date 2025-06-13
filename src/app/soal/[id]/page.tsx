@@ -55,14 +55,12 @@ function Soal() {
         <MoonLoader />
       </div>
     );
-    
+
   if (!data)
     return <div className="text-center text-black mt-20">Quiz not found</div>;
-  // console.log(data);
 
   const currentQuestion = data?.[currentQuestionIndex];
   const totalQuestions = data?.length;
-  // console.log(data?.[currentQuestionIndex]);
 
   if (isLoading)
     return <div className="text-center text-black mt-20">Loading...</div>;
@@ -84,10 +82,6 @@ function Soal() {
       }
     });
     score = (benar / totalQuestions) * 100;
-
-    // console.log("Hasil:");
-    // console.log("Benar:", benar);
-    // console.log("Score:", score);
 
     // Kirim ke Backend
     mutate({

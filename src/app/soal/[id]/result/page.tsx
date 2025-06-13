@@ -22,8 +22,6 @@ export default function Result() {
   const { data, isLoading } = useGetLeaderboard(soalId);
 
   const getMyName = getUser();
-  //   console.log(data);
-  //   console.log(soalId);
 
   if (isLoading)
     return (
