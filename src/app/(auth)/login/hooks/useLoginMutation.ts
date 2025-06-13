@@ -23,7 +23,7 @@ export const useLoginMutation = () => {
     },
     onSuccess: () => {
       toast.success("Anda berhasil login!!");
-      router.push("/");
+      router.push("/dashboard");
     },
     onError: () => {
       toast.error("Email atau kata sandi salah, silahkan coba lagi");
