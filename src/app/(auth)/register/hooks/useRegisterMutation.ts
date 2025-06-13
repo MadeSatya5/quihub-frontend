@@ -10,7 +10,7 @@ export const useRegisterMutation = () => {
   const { mutate, isPending } = useMutation({
     mutationFn: async (data: RegisterRequest) => {
       const response = await axios.post<RegisterResponse>(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/login`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/register`,
         {
           email: data.email,
           password: data.password,

@@ -1,10 +1,23 @@
 import Link from "next/link";
-import Typography from "./Typography";
+import Typography from "../../../components/ui/Typography";
 import { ChevronRight } from "lucide-react";
+import { useRouter } from "next/navigation";
 
-function QuizScrollItem() {
+type QuizScrollItemProps = {
+  id: string;
+  index: number;
+  mata_kuliah: string;
+  // src: string,
+};
+
+function QuizScrollItem({ id, index, mata_kuliah }: QuizScrollItemProps) {
+  const router = useRouter();
+
   return (
-    <div className="w-fit px-8 py-7 h-fit bg-main-black flex-shrink-0 rounded-[25px]">
+    <div
+      className="w-fit mx-3 mt-5 px-8 py-7 h-fit bg-main-black flex-shrink-0 rounded-[25px] transition-transform duration-300 hover:scale-105 cursor-pointer"
+      onClick={() => router.push(`/soal/${id}`)}
+    >
       <div className="flex flex-col justify-center gap-8">
         <div className="flex items-center bg-main-white rounded-[30px] px-5 py-1 gap-4">
           <Typography
@@ -12,23 +25,23 @@ function QuizScrollItem() {
             weight="bold"
             className="text-white text-center bg-main-black rounded-full w-10 h-10 flex items-center justify-center"
           >
-            1.
+            {index}
           </Typography>
           <Typography
             variant="p"
             weight="bold"
-            className="text-black text-center  "
+            className="text-black text-start w-[200px] "
           >
-            Dasar Pemrograman
+            {mata_kuliah}
           </Typography>
         </div>
-        <Typography
+        {/* <Typography
           variant="p"
           weight="bold"
           className="text-white text-center"
         >
           Loop, Conditional, and Function
-        </Typography>
+        </Typography> */}
         <Typography
           variant="p"
           weight="bold"

@@ -12,3 +12,12 @@ export const setToken = (token: string) => {
 export const removeToken = () => {
   cookies.remove(TOKEN_KEY, { path: "/" });
 };
+
+
+const USER_KEY = "user";
+
+export const getUser = (): string => cookies.get(USER_KEY);
+
+export const setUser = (token: string) => {
+  cookies.set(USER_KEY, token, { path: "/" });
+};

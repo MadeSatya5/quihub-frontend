@@ -1,19 +1,23 @@
 "use client";
 
 import MainLayout from "@/components/layouts/Layout";
-import QuizScrollItem from "@/components/ui/QuizScrollItem";
+import QuizScrollItem from "@/app/dashboard/components/QuizScrollItem";
 import RotatingText from "@/components/ui/RotatingText";
 import SearchBar from "@/components/ui/SearchBar";
 import Typography from "@/components/ui/Typography";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
+import MoonLoader from "react-spinners/MoonLoader";
+import { useGetAllQuiz } from "./hooks/useGetAllQuiz";
 
 function Dashboard() {
+  const { data: quizzes, isLoading } = useGetAllQuiz();
+
   return (
     <MainLayout withNavbar={true} withFooter={false} classname="min-h-screen">
       {/* Search Bar */}
-        <div className="flex flex-col items-center justify-center h-full gap-5 mt-10">
-          <div className="flex items-center gap-1">
+      <div className="flex flex-col items-center justify-center h-full gap-5 mt-10">
+        <div className="flex items-center gap-1">
           <Typography variant="h4" weight="bold" className="text-5xl">
             Qui
           </Typography>
@@ -29,10 +33,9 @@ function Dashboard() {
             transition={{ type: "spring", damping: 30, stiffness: 400 }}
             rotationInterval={2000}
           />
-
-          </div>
-          <SearchBar />
         </div>
+        <SearchBar />
+      </div>
 
       {/* List Soal */}
       <div className="flex justify-between lg:w-[1200px] px-5 lg:mx-auto mt-10 border-b-2 border-main-black pb-4">
@@ -45,10 +48,20 @@ function Dashboard() {
       </div>
 
       <div className="flex gap-5 h-[350px] w-4/5 mx-auto mt-5 overflow-x-auto">
-        <QuizScrollItem />
-        <QuizScrollItem />
-        <QuizScrollItem />
-        <QuizScrollItem />
+        {isLoading && (
+          <div className="flex items-center justify-center w-full h-full">
+            <MoonLoader />
+          </div>
+        )}
+        {quizzes?.map((quiz, index) => (
+          <QuizScrollItem
+            key={quiz.id}
+            id={quiz.id}
+            index={index + 1}
+            mata_kuliah={quiz.mata_kuliah}
+            // src={quiz.src}
+          />
+        ))}
       </div>
     </MainLayout>
   );

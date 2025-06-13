@@ -8,10 +8,12 @@ import Typography from "@/components/ui/Typography";
 import { LoginRequest } from "@/types/auth";
 import Link from "next/link";
 import { useRegisterMutation } from "./hooks/useRegisterMutation";
+import toast from "react-hot-toast";
 
 function Register() {
   const methods = useForm<LoginRequest>();
   const {
+    register,
     handleSubmit,
     formState: { isValid },
   } = methods;
@@ -22,6 +24,10 @@ function Register() {
   const [showPassword, setShowPassword] = useState(false);
 
   const onSubmit = (data: LoginRequest) => {
+    if (!data.email || !data.password) {
+        toast.error("Email dan Password Tidak Boleh Kosong");
+        return;
+      }
     mutate(data);
   };
 
@@ -74,6 +80,7 @@ function Register() {
                     }`}
                   >
                     <input
+                      {...register("email")}
                       id="email"
                       type="email"
                       placeholder="Masukkan Email"
@@ -93,6 +100,7 @@ function Register() {
                     }`}
                   >
                     <input
+                      {...register("password")}
                       id="password"
                       type={showPassword ? "text" : "password"}
                       placeholder="Masukkan Password"

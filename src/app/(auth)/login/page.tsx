@@ -8,10 +8,12 @@ import Typography from "@/components/ui/Typography";
 import { LoginRequest } from "@/types/auth";
 import { useLoginMutation } from "./hooks/useLoginMutation";
 import Link from "next/link";
+import toast from "react-hot-toast";
 
 function Login() {
   const methods = useForm<LoginRequest>();
   const {
+    register,
     handleSubmit,
     formState: { isValid },
   } = methods;
@@ -22,6 +24,10 @@ function Login() {
   const [showPassword, setShowPassword] = useState(false);
 
   const onSubmit = (data: LoginRequest) => {
+    if (!data.email || !data.password) {
+      toast.error("Email dan password tidak boleh kosong");
+      return;
+    }
     mutate(data);
   };
 
@@ -76,6 +82,7 @@ function Login() {
                     }`}
                   >
                     <input
+                      {...register("email")}
                       id="email"
                       type="email"
                       placeholder="Masukkan Email"
@@ -95,6 +102,7 @@ function Login() {
                     }`}
                   >
                     <input
+                      {...register("password")}
                       id="password"
                       type={showPassword ? "text" : "password"}
                       placeholder="Masukkan Password"

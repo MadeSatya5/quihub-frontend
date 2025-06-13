@@ -4,9 +4,14 @@ import Link from "next/link";
 import Typography from "../ui/Typography";
 import { CircleUserRound, LogOut, Menu } from "lucide-react";
 import { useState } from "react";
+import { useLogout } from "@/app/(auth)/login/hooks/useLogout";
+import { useGetMe } from "@/app/(auth)/login/hooks/useGetMe";
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const { data } = useGetMe();
+  const username = data?.split("@")[0] || "Guest";
 
   return (
     <>
@@ -28,19 +33,28 @@ function Navbar() {
           </button>
 
           {/* NAVBAR MENU */}
-          <Link href="/" className="text-white text-lg font-semibold hidden lg:block">
+          <Link
+            href="/list-soal"
+            className="text-white text-lg font-semibold hidden lg:block"
+          >
             <Typography variant="btn" className="text-white">
               List Soal
             </Typography>
           </Link>
 
-          <Link href="/" className="text-white text-lg font-semibold hidden lg:block">
+          <Link
+            href="/"
+            className="text-white text-lg font-semibold hidden lg:block"
+          >
             <Typography variant="btn" className="text-white">
               Leaderboard
             </Typography>
           </Link>
 
-          <Link href="/" className="text-white text-lg font-semibold hidden lg:block">
+          <Link
+            href="/"
+            className="text-white text-lg font-semibold hidden lg:block"
+          >
             <Typography variant="btn" className="text-white">
               Result
             </Typography>
@@ -48,18 +62,24 @@ function Navbar() {
         </div>
 
         {/* ACCOUNT INFO */}
-        <div className="bg-main-black my-5 mx-5 py-3 px-10 rounded-full w-fit justify-end hidden lg:flex">
-          <Link href="/" className="text-white text-lg font-semibold flex gap-3">
-            <CircleUserRound />
-            <Typography variant="btn" className="text-white" weight="bold">
-              Hi, Guest!
-            </Typography>
-          </Link>
+        <div className="bg-main-black my-5 py-3 px-4 rounded-full w-fit justify-end hidden lg:flex gap-3">
+          <CircleUserRound />
+          <Typography
+            variant="btn"
+            className="text-white text-sm"
+            weight="bold"
+          >
+            Hi, {username}!
+          </Typography>
         </div>
 
         {/* LOGOUT BUTTON */}
         <div className="bg-red-700 my-5 mx-5 py-3 px-10 rounded-full w-fit justify-end hidden lg:flex">
-          <Link href="/" className="text-white text-lg font-semibold flex gap-3">
+          <Link
+            href="/"
+            className="text-white text-lg font-semibold flex gap-3"
+            onClick={useLogout}
+          >
             <Typography variant="btn" className="text-white">
               Logout
             </Typography>
@@ -70,11 +90,11 @@ function Navbar() {
 
       {/* DROPDOWN MENU (Mobile Only) */}
       {isMenuOpen && (
-        <div className="absolute left-0 right-0 flex flex-col bg-main-black text-white px-7 py-8 gap-5 rounded-2xl mx-5 mb-4 lg:hidden">
+        <div className="absolute left-0 right-0 flex flex-col bg-main-black text-white px-7 py-8 gap-5 rounded-2xl mx-5 mb-4 lg:hidden z-10">
           <div className="flex items-center gap-3 pt-2">
             <CircleUserRound />
             <Typography variant="btn" className="text-white" weight="bold">
-              Hi, Guest!
+              Hi, {username}!
             </Typography>
           </div>
 
@@ -93,8 +113,12 @@ function Navbar() {
               Result
             </Typography>
           </Link>
-          
-          <Link href="/" className="flex items-center gap-3 bg-red-700 px-4 py-2 rounded-full w-fit">
+
+          <Link
+            href="/"
+            className="flex items-center gap-3 bg-red-700 px-4 py-2 rounded-full w-fit"
+            onClick={useLogout}
+          >
             <Typography variant="btn" className="text-white">
               Logout
             </Typography>
