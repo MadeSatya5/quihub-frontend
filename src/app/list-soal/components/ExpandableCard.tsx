@@ -44,7 +44,7 @@ export default function ExpandableCard() {
             </div>
             <motion.button
               layoutId={`button-${quiz.mata_kuliah}-${id}`}
-              className="px-4 py-2 text-sm rounded-full font-bold font-utendo bg-main-white text-black hover:text-white-soft mt-4 md:mt-0"
+              className="px-4 py-2 text-sm rounded-full font-bold font-utendo bg-main-white text-black hover:text-white-soft mt-0"
             >
               Kerjakan
             </motion.button>

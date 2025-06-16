@@ -8,11 +8,14 @@ import Image from "next/image";
 import MainLayout from "@/components/layouts/Layout";
 import { useSubmitQuizMutation } from "../hooks/useSubmitQuizMutation";
 import { MoonLoader } from "react-spinners";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 function Soal() {
   const params = useParams();
   const router = useRouter();
   const id = typeof params.id === "string" ? params.id : "";
+
+  const [isActiveNavigation, setIsActiveNavigation] = useState(false);
 
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<number, string>>({});
@@ -93,9 +96,9 @@ function Soal() {
 
   return (
     <MainLayout withNavbar={true} withFooter={false} classname="min-h-screen">
-      <div className="flex justify-between gap-x-6 px-6">
+      <div className="flex flex-col md:flex-row justify-between gap-x-6 px-6">
         {/* Nomer Soal */}
-        <section className="p-6 mt-10 bg-white rounded-2xl shadow-lg text-black h-fit w-1/4">
+        <section className="p-6 mt-10 bg-white rounded-2xl shadow-lg text-black h-fit w-full md:w-1/4">
           <Typography variant="p" className="text-start">
             Soal No. <strong>{currentQuestionIndex + 1}</strong>
           </Typography>
@@ -121,7 +124,7 @@ function Soal() {
           </div>
         </section>
 
-        <section className="p-6 mt-10 bg-white rounded-2xl shadow-lg w-2/4">
+        <section className="p-6 mt-10 bg-white rounded-2xl shadow-lg w-full md:w-2/4">
           {/* Soal */}
           <div className="mb-6">
             <Typography
@@ -171,7 +174,7 @@ function Soal() {
             </div>
           </div>
 
-          {/* Navigasi soal */}
+          {/*Button Navigasi soal */}
           <div className="flex justify-between items-center mt-8">
             <button
               className="bg-gray-200 text-black px-4 py-2 rounded-lg hover:bg-gray-300 disabled:invisible"
@@ -203,8 +206,53 @@ function Soal() {
           )}
         </section>
 
-        {/* Navigasi Soal */}
-        <section className="p-6 mt-10 bg-white rounded-2xl shadow-lg text-black h-fit w-1/4">
+
+        {/* Toggle Navigasi Nomor Soal Mobile */}
+        <div className="flex">
+          <button
+            className={`
+              fixed md:hidden right-0 top-1/2 -translate-y-1/2 bg-main-black h-9 w-6 rounded-l-full flex items-center justify-center z-50
+              transform transition-transform duration-300 ease-in-out
+              ${isActiveNavigation ? '-translate-x-[75vw]' : 'translate-x-0'}
+            `}
+            onClick={() => setIsActiveNavigation((prev) => !prev)}
+          >
+            {isActiveNavigation ? <ChevronRight /> : <ChevronLeft />}
+          </button>
+
+          {/* Navigasi Nomor Soal Mobile */}
+          <section
+            className={`
+            fixed top-1/2 right-0 p-6 bg-white rounded-l-2xl shadow-lg text-black h-fit w-3/4 z-40
+            transform transition-transform duration-300 ease-in-out -translate-y-1/2 border border-main-black
+            ${isActiveNavigation ? "translate-x-0" : "translate-x-full"}
+          `}
+          >
+            <Typography variant="p" className="text-center" weight="bold">
+              Navigasi Soal
+            </Typography>
+            <div className="flex flex-wrap gap-2 mt-4">
+              {Array.from({ length: totalQuestions }, (_, index) => (
+                <button
+                  key={index}
+                  className={`h-7 w-7 rounded-sm text-white text-sm hover:underline ${
+                    index === currentQuestionIndex
+                      ? "bg-blue-800"
+                      : answers[index]
+                      ? "bg-blue-600"
+                      : "bg-gray-400"
+                  }`}
+                  onClick={() => setCurrentQuestionIndex(index)}
+                >
+                  {index + 1}
+                </button>
+              ))}
+            </div>
+          </section>
+        </div>
+
+        {/*Navigasi Nomor Soal Desktop*/}
+        <section className="hidden md:block p-6 mt-10 bg-white rounded-2xl shadow-lg text-black h-fit w-1/4">
           <Typography variant="p" className="text-center" weight="bold">
             Navigasi Soal
           </Typography>

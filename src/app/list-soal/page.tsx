@@ -12,7 +12,7 @@ function ListSoal() {
         </div>
         <div className="flex justify-center">
         </div>
-        <div className="flex justify-center">
+        <div className="flex justify-center p-4">
           <ExpandableCard />
         </div>
       </div>

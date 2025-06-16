@@ -10,7 +10,10 @@ import { MoonLoader } from "react-spinners";
 
 export default function Result() {
   const searchParams = useSearchParams();
+
+  // Get Score
   const score = Number(searchParams.get("score"));
+
   const pathname = usePathname();
 
   // Ekstrak ID Soal dari URL

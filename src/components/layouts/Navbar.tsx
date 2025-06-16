@@ -25,7 +25,7 @@ function Navbar() {
 
   return (
     <>
-      <div className="border-t-2 border-main-black border-b-2 mt-5 w-full flex sticky top-0">
+      <div className="border-t-2 border-main-black border-b-2 mt-5 w-full flex sticky top-5 bg-main-white">
         <div className="bg-main-black my-5 mx-5 py-3 px-10 rounded-full w-full lg:w-2/3 flex justify-between">
           {/* LOGO */}
           <Link href="/" className="text-white text-lg font-semibold">
@@ -100,7 +100,7 @@ function Navbar() {
 
       {/* DROPDOWN MENU (Mobile Only) */}
       {isMenuOpen && (
-        <div className="absolute left-0 right-0 flex flex-col bg-main-black text-white px-7 py-8 gap-5 rounded-2xl mx-5 mb-4 lg:hidden z-10">
+        <div className="fixed left-0 right-0 flex flex-col bg-main-black text-white px-7 py-8 gap-5 rounded-2xl mx-5 mb-4 lg:hidden z-10">
           <div className="flex items-center gap-3 pt-2">
             <CircleUserRound />
             <Typography variant="btn" className="text-white" weight="bold">
@@ -113,16 +113,12 @@ function Navbar() {
               List Soal
             </Typography>
           </Link>
-          <Link href="/" className="text-white text-lg font-semibold">
+          <Link href="/leaderboard" className="text-white text-lg font-semibold">
             <Typography variant="btn" className="text-white">
               Leaderboard
             </Typography>
           </Link>
-          <Link href="/" className="text-white text-lg font-semibold">
-            <Typography variant="btn" className="text-white">
-              Result
-            </Typography>
-          </Link>
+          
 
           <Link
             href="/"
