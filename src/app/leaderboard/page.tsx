@@ -33,7 +33,7 @@ function Leaderboard() {
             <Link
               key={index}
               href={`/leaderboard/${item.id}`}
-              className="group bg-white rounded-xl shadow-md hover:shadow-xl transition duration-300 overflow-hidden w-[300px]"
+              className="group bg-white rounded-xl shadow-md hover:shadow-xl transition-transform duration-300 hover:scale-105 overflow-hidden w-[300px]"
             >
               <div className="relative h-40 w-full">
                 <Image

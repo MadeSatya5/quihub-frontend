@@ -1,17 +1,12 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import {  Instrument_Sans } from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const instrumentSans = Instrument_Sans({
+  variable: "--font-instrument",
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+})
 
 export const metadata: Metadata = {
   title: "QuiHub",
@@ -24,9 +19,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${instrumentSans.variable}`}>
       <body
-        className={`bg-main-white text-white lg:w-[1450px] mx-auto ${geistSans.variable} ${geistMono.variable}`}
+        className={`bg-main-white text-white lg:w-[1450px] mx-auto font-instrument`}
       >
         <Providers>{children}</Providers>
       </body>

@@ -25,7 +25,7 @@ function Navbar() {
 
   return (
     <>
-      <div className="border-t-2 border-main-black border-b-2 mt-5 w-full flex sticky top-5 bg-main-white">
+      <div className="border-t-2 border-main-black border-b-2 mt-5 w-full flex sticky top-5 bg-main-white z-50">
         <div className="bg-main-black my-5 mx-5 py-3 px-10 rounded-full w-full lg:w-2/3 flex justify-between">
           {/* LOGO */}
           <Link href="/" className="text-white text-lg font-semibold">

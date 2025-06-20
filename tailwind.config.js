@@ -10,6 +10,9 @@ module.exports = {
       colors:{
         "main-white": "#F0F0F0",
         "main-black": "#0C0C0C",
+      },
+      fontFamily: {
+        "instrument": ['var(--font-instrument)', 'sans-serif'],
       }
     },
   },
