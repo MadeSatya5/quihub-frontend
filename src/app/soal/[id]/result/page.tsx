@@ -58,7 +58,7 @@ export default function Result() {
         </div>
 
         {/* Leaderboard */}
-        <div className="bg-white rounded-2xl shadow-xl max-w-md w-full p-8 mx-auto flex flex-col">
+        <div className="bg-white rounded-2xl shadow-xl max-w-md w-full p-8 flex flex-col">
           <h2 className="text-3xl font-bold text-center text-black mb-6">
             Leaderboard
           </h2>
